@@ -1,14 +1,56 @@
 import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native';
 import { useFonts } from 'expo-font';
-import { Stack } from 'expo-router';
+import { Slot, Stack, router, useSegments } from 'expo-router';
 import * as SplashScreen from 'expo-splash-screen';
 import { useEffect, useState } from 'react';
 import 'react-native-reanimated';
 import { useColorScheme } from '@/hooks/useColorScheme';
 import { getItem } from './utils/asyncStorage.js'
+import { AuthContextProvider, useAuth } from "../context/authContext.js";
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
+
+const MainLayout = ({ colorScheme, showOnboarding }) => {
+  const { isAuthenticated } = useAuth();
+  const segments = useSegments();
+
+  useEffect(() => {
+    //check if user is authenticated or not 
+    if (typeof isAuthenticated == "undefined") return;
+    const inApp = segments[0] == "(tabs)";
+    if (isAuthenticated && !inApp) {
+      router.replace("homeScreen");
+    } else if (isAuthenticated == false) {
+      router.replace("sign-in");
+    }
+  }, [isAuthenticated])
+
+  if (showOnboarding) {
+    return (
+
+      <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
+        <Stack screenOptions={{ headerShown: false }}>
+          <Stack.Screen name='index' options={{ headerShown: false }} />
+          <Stack.Screen name="(auth)" options={{ headerShown: false }} />
+          <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+        </Stack>
+      </ThemeProvider>
+
+    );
+  } else {
+    return (
+
+      <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
+        <Stack screenOptions={{ headerShown: false }}>
+          <Stack.Screen name="(auth)" options={{ headerShown: false }} />
+          <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+        </Stack>
+      </ThemeProvider>
+
+    );
+  }
+}
 
 export default function RootLayout() {
   const colorScheme = useColorScheme();
@@ -51,25 +93,11 @@ export default function RootLayout() {
 
   if (!fontsLoaded && !error && showOnboarding == null) return null;
 
-  if (showOnboarding) {
-    return (
-      <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-        <Stack screenOptions={{ headerShown: false }}>
-          <Stack.Screen name='index' options={{ headerShown: false }} />
-          <Stack.Screen name="(auth)" options={{ headerShown: false }} />
-          <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-        </Stack>
-      </ThemeProvider>
-    );
-  } else {
-    return (
-      <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-        <Stack screenOptions={{ headerShown: false }}>
-          <Stack.Screen name="(auth)" options={{ headerShown: false }} />
-          <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-        </Stack>
-      </ThemeProvider>
-    );
-  }
+  return (
+    <AuthContextProvider>
+      <MainLayout colorScheme={colorScheme} showOnboarding={showOnboarding} />
+    </AuthContextProvider>
+  );
+
 
 }

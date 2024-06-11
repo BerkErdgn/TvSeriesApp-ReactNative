@@ -34,6 +34,7 @@ const MainLayout = ({ colorScheme, showOnboarding }) => {
           <Stack.Screen name='index' options={{ headerShown: false }} />
           <Stack.Screen name="(auth)" options={{ headerShown: false }} />
           <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+          <Stack.Screen name="detail/[id]" options={{ headerShown: false }} />
         </Stack>
       </ThemeProvider>
 
@@ -45,6 +46,7 @@ const MainLayout = ({ colorScheme, showOnboarding }) => {
         <Stack screenOptions={{ headerShown: false }}>
           <Stack.Screen name="(auth)" options={{ headerShown: false }} />
           <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+          <Stack.Screen name="detail/[id]" options={{ headerShown: false }} />
         </Stack>
       </ThemeProvider>
 

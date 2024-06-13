@@ -101,8 +101,8 @@ const styles = StyleSheet.create({
         marginBottom: 30,
         width: width * 0.85,
         height: width,
-        elevation: 4,
 
+        elevation: 4,
         shadowColor: "orange",
         shadowRadius: 5,
         shadowOffset: { width: 1, height: 1 },

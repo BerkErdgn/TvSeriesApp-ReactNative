@@ -6,6 +6,7 @@ import axios from "axios"
 // https://api.tvmaze.com/seasons/1/episodes
 //https://api.tvmaze.com/shows/1/crew
 //https://api.tvmaze.com/shows/1?embed=cast
+//https://api.tvmaze.com/search/shows?q=girls
 
 const BASE_URL = "https://api.tvmaze.com"
 
@@ -97,6 +98,19 @@ export const getPersonData = async (id) => {
         const response = await axios({
             method: "GET",
             url: `${BASE_URL}/people/${id}`
+        })
+        return { success: true, data: response.data }
+    } catch (error) {
+        return { success: false, msg: error }
+    }
+}
+
+
+export const getSearchedTvSeriesData = async (searchTvSeries) => {
+    try {
+        const response = await axios({
+            method: "GET",
+            url: `${BASE_URL}/search/shows?q=${searchTvSeries}`
         })
         return { success: true, data: response.data }
     } catch (error) {

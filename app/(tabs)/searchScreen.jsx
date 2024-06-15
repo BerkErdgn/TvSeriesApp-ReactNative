@@ -1,11 +1,17 @@
-import { StyleSheet, Text, View } from 'react-native'
+import { ScrollView, StyleSheet, Text, View } from 'react-native'
 import React from 'react'
+import { SafeAreaView } from 'react-native-safe-area-context'
+import TitleComponent from '../../components/titleComponent'
+import SearchComponent from '../../components/searchComponent'
 
 export default function SearchScreen() {
     return (
-        <View>
-            <Text>SearchScreen</Text>
-        </View>
+        <SafeAreaView>
+            <ScrollView>
+                <TitleComponent />
+                <SearchComponent />
+            </ScrollView>
+        </SafeAreaView>
     )
 }
 

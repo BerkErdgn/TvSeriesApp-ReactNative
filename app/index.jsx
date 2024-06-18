@@ -11,9 +11,9 @@ const { width, height } = Dimensions.get('window');
 export default function App() {
     const router = useRouter();
 
-    const handleDone = () => {
-        router.push("/sign-in")
-        setItem("onboarded", "1");
+    const handleDone = async () => {
+        await setItem("onboarded", "1");
+        router.push("/sign-in");
     }
 
     const doneButton = (props) => {

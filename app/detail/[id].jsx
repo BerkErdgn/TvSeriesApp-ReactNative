@@ -1,10 +1,14 @@
-import { Image, StyleSheet, Text, View, Dimensions, ActivityIndicator, FlatList, TouchableOpacity } from 'react-native'
+import { Image, StyleSheet, Text, View, Dimensions, ActivityIndicator, FlatList, TouchableOpacity, Alert } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import { Link, useLocalSearchParams } from 'expo-router';
 import { getTvSeriesCast, getTvSeriesCrew, getTvSeriesDetail, getTvSeriesEpisodes } from '../../data/api/tvSeriesApi';
 import { ScrollView } from 'react-native';
 import { FontAwesome6 } from "@expo/vector-icons"
 import Animated, { FadeInDown } from 'react-native-reanimated';
+import { AntDesign } from '@expo/vector-icons';
+import { useAuth } from '../../context/authContext';
+import { auth } from "../../firebaseConfig"
+import { onAuthStateChanged } from 'firebase/auth';
 
 
 const { width, height } = Dimensions.get('window');
@@ -17,8 +21,38 @@ export default function detailScreen() {
     const [episodesData, setEpisodesData] = useState([]);
     const [castData, setCastData] = useState([]);
     const [crewData, setCrewData] = useState([]);
+    const { sendData } = useAuth();
+
+    const [name, setName] = useState("");
+    const [userEmail, setUserEmail] = useState("");
+
+
+    //Get user from firebase
+    const getCurrentUser = () => {
+        onAuthStateChanged(auth, (user) => {
+            if (user) {
+                setUserEmail(user.email);
+            } else {
+                console.log('No user is signed in');
+                Alert.alert("Error", "Error");
+            }
+        });
+    };
+
+    getCurrentUser();
+
+    //Add Favorite TvSeries İn Firebase
+    const handleAddFavoriteButton = async () => {
+        try {
+            let response = await sendData(userEmail, tvSeriesDetailData.id, tvSeriesDetailData.image.medium, tvSeriesDetailData.name);
+            Alert.alert("Favorilere Eklendi");
+        } catch (error) {
+            Alert.alert(error);
+        }
+    }
 
     useEffect(() => {
+
         const fetchTvSeriesData = async (id) => {
             try {
                 setLoading(true);
@@ -74,6 +108,11 @@ export default function detailScreen() {
     }, [])
 
 
+
+
+
+
+
     return (
         <ScrollView>
             {
@@ -90,9 +129,17 @@ export default function detailScreen() {
                             style={{ width: width, height: height * 0.4 }}
                             resizeMode="stretch"
                         />
-                        {/* Title */}
+                        {/* Title and Like Button */}
                         <View style={styles.nameContainer}>
                             <Text style={styles.nameTitle} >{tvSeriesDetailData.name}</Text>
+
+                            <TouchableOpacity onPress={handleAddFavoriteButton}>
+                                <View style={styles.likeButtonContainer}>
+                                    <AntDesign name="heart" size={24} color="white" />
+                                </View>
+                            </TouchableOpacity>
+
+
                         </View>
                         {/* Genres and rating */}
                         <View style={styles.genderAndRatingContainer}>
@@ -233,6 +280,7 @@ export default function detailScreen() {
                         </View>
 
 
+
                     </View>
 
 
@@ -247,15 +295,21 @@ const styles = StyleSheet.create({
         marginBottom: 25,
     },
     nameContainer: {
+        flexDirection: 'row',
         marginTop: 10,
-        justifyContent: "center",
-        alignItems: "center",
-        width: width
+        width: width,
+        alignItems: 'center',
     },
     nameTitle: {
-        color: "white",
+        color: 'white',
         fontSize: 35,
-        fontWeight: "400"
+        fontWeight: '400',
+        textAlign: 'center',
+        flex: 1,
+    },
+    likeButtonContainer: {
+        justifyContent: 'flex-end',
+        marginRight: 30,
     },
     genresTitle: {
         color: "#6B6B6B",
@@ -380,6 +434,7 @@ const styles = StyleSheet.create({
         color: "#6B6B6B",
         fontSize: 13
     },
+
 
 
 })

@@ -1,6 +1,6 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import { createUserWithEmailAndPassword, onAuthStateChanged, signInWithEmailAndPassword, signOut } from "firebase/auth";
-import { doc, getDoc, setDoc } from "firebase/firestore"
+import { addDoc, collection, doc, getDoc, setDoc } from "firebase/firestore"
 import { db, auth } from "../firebaseConfig"
 
 export const AuthContext = createContext();
@@ -62,8 +62,23 @@ export const AuthContextProvider = ({ children }) => {
         }
     }
 
+    const sendData = async (user, id, imageUrl, name) => {
+        try {
+            const docRef = await addDoc(collection(db, "favoritesTvSeries"), {
+                user: user,
+                id: id,
+                imageUrl: imageUrl,
+                name: name
+            });
+            console.log("Document with ID", docRef.id);
+        } catch (error) {
+            console.log("Error:", e);
+        }
+    }
+
+
     return (
-        <AuthContext.Provider value={{ user, isAuthenticated, login, register, logout }}>
+        <AuthContext.Provider value={{ user, isAuthenticated, login, register, logout, sendData }}>
             {children}
         </AuthContext.Provider>
     )

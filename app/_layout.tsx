@@ -26,32 +26,18 @@ const MainLayout = ({ colorScheme, showOnboarding }) => {
     }
   }, [isAuthenticated])
 
-  if (showOnboarding) {
-    return (
-
-      <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-        <Stack screenOptions={{ headerShown: false }}>
-          <Stack.Screen name='index' options={{ headerShown: false }} />
-          <Stack.Screen name="(auth)" options={{ headerShown: false }} />
-          <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-          <Stack.Screen name="detail/[id]" options={{ headerShown: false }} />
-        </Stack>
-      </ThemeProvider>
-
-    );
-  } else {
-    return (
-
-      <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-        <Stack screenOptions={{ headerShown: false }}>
-          <Stack.Screen name="(auth)" options={{ headerShown: false }} />
-          <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-          <Stack.Screen name="detail/[id]" options={{ headerShown: false }} />
-        </Stack>
-      </ThemeProvider>
-
-    );
-  }
+  return (
+    <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
+      <Stack screenOptions={{ headerShown: false }}>
+        {showOnboarding ? (
+          <Stack.Screen name="index" options={{ headerShown: false }} />
+        ) : null}
+        <Stack.Screen name="(auth)" options={{ headerShown: false }} />
+        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+        <Stack.Screen name="detail/[id]" options={{ headerShown: false }} />
+      </Stack>
+    </ThemeProvider>
+  );
 }
 
 export default function RootLayout() {
@@ -74,26 +60,22 @@ export default function RootLayout() {
 
 
   useEffect(() => {
-    const checkIdAlreadyOnBoarded = async () => {
+    const checkIfAlreadyOnBoarded = async () => {
       let onboarded = await getItem("onboarded");
-      if (onboarded == 1) {
-        setShowOnboarding(false);
-      } else {
-        setShowOnboarding(true);
-      }
+      setShowOnboarding(onboarded !== "1");
+      if (fontsLoaded) {
+        SplashScreen.hideAsync()
+      };
     };
 
-    checkIdAlreadyOnBoarded();
-  }, []);
+    checkIfAlreadyOnBoarded();
+  }, [fontsLoaded]);
 
   useEffect(() => {
     if (error) throw error;
-    if (fontsLoaded) {
-      SplashScreen.hideAsync()
-    };
-  }, [fontsLoaded, error])
+  }, [error])
 
-  if (!fontsLoaded && !error && showOnboarding == null) return null;
+  if (fontsLoaded === false && error === null && showOnboarding == null) return null;
 
   return (
     <AuthContextProvider>

@@ -10,7 +10,7 @@ const { width, height } = Dimensions.get('window');
 export default function PersonDetail() {
     const { id } = useLocalSearchParams();
     const [loading, setLoading] = useState(true);
-    const [personData, setPersonData] = useState([])
+    const [personData, setPersonData] = useState([]);
 
     useEffect(() => {
         const fetchTvSeriesData = async (id) => {
@@ -42,7 +42,7 @@ export default function PersonDetail() {
                         {/* Image */}
                         <View style={styles.imageContainer}>
                             <Image
-                                source={{ uri: personData.image.medium }}
+                                source={{ uri: personData.image ? personData.image.medium : null }}
                                 style={{ width: width / 4, height: height * 0.4 }}
                                 resizeMode="contain"
                             />

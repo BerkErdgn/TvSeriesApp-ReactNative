@@ -192,21 +192,19 @@ export default function detailScreen() {
                                 horizontal={true}
                                 renderItem={({ item, i }) => {
                                     return (
-                                        <Link href={""} asChild>
-                                            <TouchableOpacity>
-                                                <Animated.View entering={FadeInDown.delay(i * 1000).duration(600).springify().damping(12)} style={styles.episodes}>
-                                                    <Image
-                                                        source={{ uri: item.image ? item.image.medium : null }}
-                                                        sharedTransitionTag={item.id}
-                                                        style={{ width: width / 3, borderRadius: 10, height: width / 4, }}
-                                                        resizeMode="contain"
+                                        <TouchableOpacity>
+                                            <Animated.View entering={FadeInDown.delay(i * 1000).duration(600).springify().damping(12)} style={styles.episodes}>
+                                                <Image
+                                                    source={{ uri: item.image ? item.image.medium : null }}
+                                                    sharedTransitionTag={item.id}
+                                                    style={{ width: width / 3, borderRadius: 10, height: width / 4, }}
+                                                    resizeMode="contain"
 
-                                                    />
-                                                    <Text style={styles.episodesTitle}>{item.name}</Text>
+                                                />
+                                                <Text style={styles.episodesTitle}>{item.name}</Text>
 
-                                                </Animated.View>
-                                            </TouchableOpacity>
-                                        </Link>
+                                            </Animated.View>
+                                        </TouchableOpacity>
                                     )
                                 }}
                             />

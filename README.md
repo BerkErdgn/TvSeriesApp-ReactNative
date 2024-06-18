@@ -1,48 +1,71 @@
-# Welcome to your Expo app 👋
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+# Tv Series App ReactNative
 
-## Get started
+This application is a version of the [TvSeriesApp-Level-3](https://github.com/BerkErdgn/TvSeriesApp-Level-3) application made with React Native.
 
-1. Install dependencies
+This app shows Tv series. It gives information about the selected series, its episodes, its actors and the crew. In addition, detailed information is given about the actors and the people in the crew. There is also a search section in the application. In this way, the desired TV series can be found by searching. And at the top of the application, you can see TvSeries, the new episode of which was released that day. You can also save your favorite TV series.
 
-   ```bash
-   npm install
-   ```
 
-2. Start the app
+## Technologies Used
+- firebase
+- expo
+- axios
+- expo-router
+- react-native-async-storage-async-storage
+- expo-vector-icons
+- expo-splash-screen
+- react-native-linear-gradient
+- react-native-masonry-list
+- react-native-onboarding-swiper
+- react-native-reanimated
+- react-native-reanimated-carousel
+- react-native-safe-area-context
+- react-native-screens
+- react-native-snap-carousel
 
-   ```bash
-    npx expo start
-   ```
+  
+## Screenshots
 
-In the output, you'll find options to open the app in a
+Splash Screen | onBoarding Screen |onBoarding Screen| Login Screen
+ --- | --- |  --- | --- | 
+![](https://github.com/BerkErdgn/TvSeriesAppReactNative/blob/main/sc/1.jpg?raw=true)| ![](https://github.com/BerkErdgn/TvSeriesAppReactNative/blob/main/sc/2.jpg?raw=true) |![](https://github.com/BerkErdgn/TvSeriesAppReactNative/blob/main/sc/3.jpg?raw=true) |![](https://github.com/BerkErdgn/TvSeriesAppReactNative/blob/main/sc/4.jpg?raw=true)|
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
 
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
+Register Screen | Home Screen |Search TV Screen| Favorites Screen
+ --- | --- |  --- | --- | 
+![](https://github.com/BerkErdgn/TvSeriesAppReactNative/blob/main/sc/5.jpg?raw=true)| ![](https://github.com/BerkErdgn/TvSeriesAppReactNative/blob/main/sc/6.jpg?raw=true) |![](https://github.com/BerkErdgn/TvSeriesAppReactNative/blob/main/sc/7.jpg?raw=true) |![](https://github.com/BerkErdgn/TvSeriesAppReactNative/blob/main/sc/8.jpg)|
 
-## Get a fresh project
+Profile Screen | Detail Screen 1 | Detail Screen 2 | Person Detail Screen
+ --- | --- |  --- | --- |
+![](https://github.com/BerkErdgn/TvSeriesAppReactNative/blob/main/sc/9.jpg?raw=true)| ![](https://github.com/BerkErdgn/TvSeriesAppReactNative/blob/main/sc/10.jpg?raw=true) |![](https://github.com/BerkErdgn/TvSeriesAppReactNative/blob/main/sc/11.jpg?raw=true) |![](https://github.com/BerkErdgn/TvSeriesAppReactNative/blob/main/sc/12.jpg?raw=true)
 
-When you're ready, run:
 
-```bash
-npm run reset-project
+## Download  
+
+To download the project
+
+```bash 
+  1-Press the green "Code" button at the top right of this page.
+  2-Click on Download ZIP
+  3-Extract the ZIP and open it to Visual Studio Code.
 ```
+As an alternative
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+You can directly download the ZIP by clicking the [link here](https://github.com/BerkErdgn/TvSeriesAppReactNative/archive/refs/heads/main.zip).
 
-## Learn more
+## Find a bug?
+
+If you found an issue or would like to submit an improvement to this project, please submit an issue using the issues tab above.
+Thank you very much.
+
+## Learn more (React Native - Expo)
 
 To learn more about developing your project with Expo, look at the following resources:
 
 - [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
 - [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
 
-## Join the community
+## Join the community (React Native - Expo)
 
 Join our community of developers creating universal apps.
 
